@@ -6,7 +6,6 @@ import { DashboardCardComponent } from '../dashboard-card/dashboard-card.compone
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  standalone: true,
   imports: [CommonModule, DashboardCardComponent]
 })
 export class DashboardComponent {
