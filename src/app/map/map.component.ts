@@ -28,10 +28,18 @@ export class MapComponent implements OnInit {
   }
 
   private generateShipMarkers(): void {
+    const defaultIcon = L.icon({
+      iconUrl: 'https://unpkg.com/leaflet/dist/images/marker-icon.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      tooltipAnchor: [16, -28]
+    });
+  
     for (let i = 0; i < 5; i++) {
       const randomLat = this.centroid.lat + (Math.random() - 0.5) / 10;
       const randomLng = this.centroid.lng + (Math.random() - 0.5) / 10;
-      const marker = L.marker([randomLat, randomLng]);
+      const marker = L.marker([randomLat, randomLng], { icon: defaultIcon });
   
       const shipName = `Ship ${i + 1}`;
       const status = i % 2 === 0 ? 'Docked' : 'En Route';
@@ -41,11 +49,11 @@ export class MapComponent implements OnInit {
       `, { autoPan: false });
   
       marker.bindTooltip(shipName);
-  
       marker.addTo(this.map);
       this.shipMarkers.push(marker);
     }
   }
+  
 
   private updateShipPositions(): void {
     this.shipMarkers.forEach((marker, index) => {
