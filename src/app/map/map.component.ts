@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
@@ -6,27 +6,50 @@ import * as L from 'leaflet';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit {
+
   private map!: L.Map;
+  private centroid: L.LatLngLiteral = { lat: 1.3521, lng: 103.8198 };
+  private shipMarkers: L.Marker[] = [];
 
   private initMap(): void {
     this.map = L.map('map', {
-      center: [ 39.8282, -98.5795 ],
-      zoom: 3
+      center: this.centroid,
+      zoom: 12
     });
 
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      minZoom: 3,
+      minZoom: 10,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+    }).addTo(this.map);
 
-    tiles.addTo(this.map);
+    this.generateShipMarkers();
   }
 
-  constructor() { }
+  private generateShipMarkers(): void {
+    for (let i = 0; i < 5; i++) {
+      const randomLat = this.centroid.lat + (Math.random() - 0.5) / 10;
+      const randomLng = this.centroid.lng + (Math.random() - 0.5) / 10;
+      const marker = L.marker([randomLat, randomLng]).addTo(this.map);
+      this.shipMarkers.push(marker);
+    }
+  }
 
-  ngAfterViewInit(): void {
+  private updateShipPositions(): void {
+    this.shipMarkers.forEach((marker) => {
+      const currentPos = marker.getLatLng();
+      const newLat = currentPos.lat + (Math.random() - 0.5) / 100;
+      const newLng = currentPos.lng + (Math.random() - 0.5) / 100;
+      marker.setLatLng([newLat, newLng]);
+    });
+  }
+
+  ngOnInit(): void {
     this.initMap();
+
+    setInterval(() => {
+      this.updateShipPositions();
+    }, 2000);
   }
 }
