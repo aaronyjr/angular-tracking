@@ -4,10 +4,9 @@ import * as L from 'leaflet';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
-
   private map!: L.Map;
   private centroid: L.LatLngLiteral = { lat: 1.3521, lng: 103.8198 };
   private shipMarkers: L.Marker[] = [];
@@ -15,13 +14,14 @@ export class MapComponent implements OnInit {
   private initMap(): void {
     this.map = L.map('map', {
       center: this.centroid,
-      zoom: 12
+      zoom: 12,
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       minZoom: 10,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(this.map);
 
     this.generateShipMarkers();
@@ -29,31 +29,33 @@ export class MapComponent implements OnInit {
 
   private generateShipMarkers(): void {
     const defaultIcon = L.icon({
-      iconUrl: 'https://unpkg.com/leaflet/dist/images/marker-icon.png',
+      iconUrl: 'ship-icon.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
-      tooltipAnchor: [16, -28]
+      tooltipAnchor: [16, -28],
     });
-  
+
     for (let i = 0; i < 5; i++) {
       const randomLat = this.centroid.lat + (Math.random() - 0.5) / 10;
       const randomLng = this.centroid.lng + (Math.random() - 0.5) / 10;
       const marker = L.marker([randomLat, randomLng], { icon: defaultIcon });
-  
+
       const shipName = `Ship ${i + 1}`;
       const status = i % 2 === 0 ? 'Docked' : 'En Route';
-      marker.bindPopup(`
+      marker.bindPopup(
+        `
         <b>${shipName}</b><br>
         Status: ${status}
-      `, { autoPan: false });
-  
+      `,
+        { autoPan: false }
+      );
+
       marker.bindTooltip(shipName);
       marker.addTo(this.map);
       this.shipMarkers.push(marker);
     }
   }
-  
 
   private updateShipPositions(): void {
     this.shipMarkers.forEach((marker, index) => {
@@ -67,10 +69,14 @@ export class MapComponent implements OnInit {
       marker.bindPopup(`
         <b>Ship ${index + 1}</b>
         <br>Status: ${status}<br>
-        Location: [${newLat.toFixed(5)}, ${newLng.toFixed(5)}]
+        <img src="ship-popup.avif" alt="ship" style="width: 300px; height: auto;">
+        <br>Location: [${newLat.toFixed(5)}, ${newLng.toFixed(5)}]
+        <br><button onclick="showVesselDetails(${index})" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Vessel Details</button>
       `);
     });
   }
+
+  
 
   ngOnInit(): void {
     this.initMap();
@@ -78,5 +84,9 @@ export class MapComponent implements OnInit {
     setInterval(() => {
       this.updateShipPositions();
     }, 2000);
+  }
+  
+  ngOnDestroy(): void {
+    this.map.remove()
   }
 }
