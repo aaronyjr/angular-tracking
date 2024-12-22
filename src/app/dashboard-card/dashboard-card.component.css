@@ -1,4 +1,3 @@
-/* Card styling */
 .card {
     padding: 20px;
     border-radius: 15px;
@@ -11,13 +10,11 @@
     min-height: 15vw;
   }
   
-  /* Hover effect */
   .card:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     transform: translateY(-5px);
   }
   
-  /* Card icon */
   .card i {
     font-size: 2rem;
     color: #3498db;
