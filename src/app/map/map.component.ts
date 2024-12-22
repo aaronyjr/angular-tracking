@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -7,6 +8,7 @@ import * as L from 'leaflet';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
+  constructor(public router: Router) {}
   private map!: L.Map;
   private centroid: L.LatLngLiteral = { lat: 1.3521, lng: 103.8198 };
   private shipMarkers: L.Marker[] = [];
@@ -71,12 +73,12 @@ export class MapComponent implements OnInit {
         <br>Status: ${status}<br>
         <img src="ship-popup.avif" alt="ship" style="width: 300px; height: auto;">
         <br>Location: [${newLat.toFixed(5)}, ${newLng.toFixed(5)}]
-        <br><button onclick="showVesselDetails(${index})" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Vessel Details</button>
+        <a href="/" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; cursor: pointer;">
+  Vessel Details
+</a>
       `);
     });
   }
-
-  
 
   ngOnInit(): void {
     this.initMap();
@@ -85,8 +87,8 @@ export class MapComponent implements OnInit {
       this.updateShipPositions();
     }, 2000);
   }
-  
+
   ngOnDestroy(): void {
-    this.map.remove()
+    this.map.remove();
   }
 }

@@ -20,3 +20,8 @@
   height: 90vh;
   width: 100vw;
 }
+
+leaflet-popup-content .test {
+  color: black;
+  font-size: 300px;
+}
