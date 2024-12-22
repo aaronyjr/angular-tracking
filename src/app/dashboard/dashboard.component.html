@@ -1,9 +1,12 @@
 <div class="dashboard-container">
-  <div class="grid">
-    <app-dashboard-card
-      *ngFor="let card of cards"
-      [title]="card.title"
-      [content]="card.content">
-    </app-dashboard-card>
+  <h1>Ship 1</h1>
+  <div class="ship-image-container">
+    <img src="ship-popup.avif" alt="Ship Image" class="ship-image" />
+  </div>
+  <div class="cards-container">
+    <div class="card" *ngFor="let card of cards">
+      <h3 class="card-title">{{ card.title }}</h3>
+      <p class="card-content">{{ card.content }}</p>
+    </div>
   </div>
 </div>
