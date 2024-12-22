@@ -1,13 +1,13 @@
 .card {
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 8px;
     background: #ffffff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     overflow: hidden;
     position: relative;
-    min-width: 25vw;
-    min-height: 15vw;
+    width: clamp(180px, 240px, 280px);
+    height: clamp(150px, 200px, 220px);
   }
   
   .card:hover {
