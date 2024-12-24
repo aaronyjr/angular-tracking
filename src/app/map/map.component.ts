@@ -84,6 +84,10 @@ export class MapComponent implements OnInit {
     this.initMap();
 
     setInterval(() => {
+      this.map.invalidateSize()  
+    }, 0);
+
+    setInterval(() => {
       this.updateShipPositions();
     }, 2000);
   }
