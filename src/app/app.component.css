@@ -1,0 +1,61 @@
+nav {
+    background: #223e7a;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: #e5e7eb;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(to right, #22d3ee, #3b82f6);
+    transition: width 0.3s ease;
+  }
+
+  a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  a:hover::after {
+    width: 80%;
+  }
+
+  .separator {
+    color: #4b5563;
+    font-weight: 300;
+    font-size: 1.2rem;
+  }
+
+  /* Active route style */
+  a.active {
+    background: rgba(59, 130, 246, 0.1);
+    color: white;
+  }
+
+  a.active::after {
+    width: 80%;
+  }

@@ -12,12 +12,12 @@
 
 .map-frame {
   border: 2px solid black;
-  height: 90vh;
-  width: 100vw;
+  height: 80vh;
+  width: 90vw;
 }
 
 #map {
-  height: 90vh;
+  height: 80vh;
   width: 90vw;
 }
 
